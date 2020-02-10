@@ -466,6 +466,7 @@ impl<T: 'static> EventLoop<T> {
             &self.window_target,
             &mut control_flow,
         );
+        callback(Event::Resumed, &self.window_target, &mut control_flow);
 
         loop {
             // Read events from the event queue
@@ -626,6 +627,7 @@ impl<T: 'static> EventLoop<T> {
             }
         }
 
+        callback(Event::Suspended, &self.window_target, &mut control_flow);
         callback(Event::LoopDestroyed, &self.window_target, &mut control_flow);
     }
 
