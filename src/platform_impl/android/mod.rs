@@ -88,18 +88,6 @@ impl<T: 'static> EventLoop<T> {
                     }
                     Event::Pause => running = false,
                     Event::Resume => running = true,
-                    Event::InputQueueCreated => {
-                        ndk_glue::input_queue()
-                            .as_ref()
-                            .unwrap()
-                            .attach_looper(looper.as_foreign(), 1);
-                    }
-                    Event::InputQueueDestroyed => {
-                        ndk_glue::input_queue()
-                            .as_ref()
-                            .unwrap()
-                            .detach_looper();
-                    }
                     Event::ConfigChanged => {
                         let am = ndk_glue::native_activity().asset_manager();
                         let config = Configuration::from_asset_manager(&am);
